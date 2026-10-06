@@ -1,0 +1,10 @@
+# What earlier experiments found (synthetic).
+EXP-001 | result | No significant effect | EXP-001, a hero-image test: no significant difference in conversion (p 0.74). It also exposed INC-021.
+EXP-002 | result | Stopped by the margin guardrail | EXP-002, a 10% first-order offer in a popup: conversion rose 9% and margin per visitor fell 7%, so the margin guardrail stopped it. A discount buys conversions with margin.
+EXP-002 | informs | discountFor | EXP-002 informs discountFor: a deeper first-order discount lifts conversion and costs margin, and the guardrail decides.
+EXP-002 | informs | COUPONS | EXP-002 informs COUPONS: the first-order coupon is the lever that was tested, and it was stopped.
+EXP-003 | result | Shipped: margin per visitor up 4% | EXP-003, a lower free-shipping threshold against the standing one: margin per visitor rose 4%, so it shipped for six weeks and was then set back for stock reasons.
+EXP-003 | informs | shippingFor | EXP-003 informs shippingFor: moving the threshold changes who pays shipping, the carrier cost the shop carries on every order (CARRIER_COST_CENTS) and the margin the finance dashboard shows.
+EXP-003 | informs | FREE_SHIPPING_THRESHOLD_CENTS | EXP-003 informs FREE_SHIPPING_THRESHOLD_CENTS: a test varies the threshold passed to shippingFor, not the constant.
+EXP-004 | result | Invalid: split off | EXP-004, a banner test: the sample-ratio check failed because the assignment was keyed on a session, so the result was thrown away.
+EXP-004 | informs | storefrontConfig | EXP-004 informs storefrontConfig: key the assignment on the visitor, not the session.

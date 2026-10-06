@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+      - run: npm test
+      - name: the code graph matches the source
+        run: node tools/code-graph.mjs --check
+      - name: gate D
+        run: |
+          bash scripts/gate-d.sh --self-test
+          bash scripts/gate-d.sh src web sim test acceptance tools docs memory README.md

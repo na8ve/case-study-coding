@@ -1,0 +1,8 @@
+#!/bin/sh
+# The code graph goes in the same commit as the code it describes.
+# Turn on with: git config core.hooksPath tools/hooks
+node tools/code-graph.mjs > /dev/null || {
+	echo "pre-commit: tools/code-graph.mjs failed, so the commit was stopped" >&2
+	exit 1
+}
+git add memory/code

@@ -1,0 +1,16 @@
+{
+	"name": "tidewell-goods",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "A small online shop with analytics dashboards. Synthetic: no real shop, customer or order.",
+	"scripts": {
+		"start": "node server.mjs",
+		"test": "node --test \"test/*.test.mjs\"",
+		"simulate": "node sim/run.mjs",
+		"accept": "node acceptance/ab-testing.mjs"
+	},
+	"engines": {
+		"node": ">=22"
+	}
+}

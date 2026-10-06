@@ -1,0 +1,20 @@
+# Decisions the shop's team made (synthetic).
+DEC-0003 | governs | pricing | DEC-0003: prices are whole cents. Every price, discount, tax and shipping amount in the pricing module is an integer number of cents; a float never holds money.
+DEC-0003 | governs | orderTotals | DEC-0003 applies to orderTotals: every field it returns (subtotalCents, discountCents, shippingCents, taxCents, totalCents) is an integer.
+DEC-0003 | governs | discountFor | DEC-0003 applies to discountFor: a percentage discount is rounded to a whole cent before it is subtracted.
+DEC-0005 | governs | taxFor | DEC-0005: tax is charged on the discounted subtotal.
+DEC-0005 | governs | orderEconomics | DEC-0005: tax is collected for the state and is never revenue, so orderEconomics leaves it out of revenue and of margin.
+DEC-0007 | governs | shippingFor | DEC-0007: free shipping is judged on the discounted subtotal, after any coupon, so a coupon cannot give away shipping that the discount has already earned back. shippingFor takes the discounted amount, never the list subtotal.
+DEC-0007 | governs | orderTotals | DEC-0007: orderTotals applies the discount first and passes the discounted subtotal to shippingFor.
+DEC-0009 | governs | refundOrder | DEC-0009: a refund reverses the order's revenue once. The cost of goods and the carrier cost are not recovered.
+DEC-0009 | governs | orderEconomics | DEC-0009: orderEconomics counts a refunded order's revenue as zero and keeps its cost, so a refund makes margin negative for that order.
+DEC-0011 | governs | storefrontConfig | DEC-0011: an experiment's variant is sticky. It comes from hashing the visitor id with the experiment key, never from a random draw per request. storefrontConfig is where the settings a visitor sees are built.
+DEC-0012 | governs | EVENT_NAMES | DEC-0012: every experiment exposure is recorded as an exposure event, once per visitor and experiment. EVENT_NAMES is the register of event names; a new event is added there first.
+DEC-0012 | governs | track | DEC-0012: track refuses a name that is not in EVENT_NAMES, so an exposure event needs its name registered before anything records it.
+DEC-0014 | governs | Experiment decisions | DEC-0014: an experiment may not ship if margin per visitor is below control by more than 2% and the drop is statistically clear, however much conversion rises.
+DEC-0014 | governs | orderEconomics | DEC-0014: margin per visitor in an experiment is built from orderEconomics, the same contribution margin the finance dashboard shows.
+DEC-0015 | governs | Experiment decisions | DEC-0015: an experiment needs at least 400 visitors in every variant before a decision, and its sample-ratio check runs first. A failed check makes it invalid.
+DEC-0016 | governs | Experiment decisions | DEC-0016: experiments are independent. Each experiment's key is part of the hash, so being in one variant says nothing about another experiment.
+DEC-0018 | governs | VIEWS | DEC-0018: a dashboard is drawn from the report its route returns. The browser never computes a metric from raw events; VIEWS in the admin page holds each tab's endpoint.
+DEC-0018 | governs | show | DEC-0018: show loads a tab's report from its endpoint and draws it; the numbers are computed on the server.
+DEC-0019 | governs | postEvent | DEC-0019: an event whose name is not registered is refused with a 400, not stored.

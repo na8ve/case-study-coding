@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tidewell Goods</title>
+	<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+	<div id="banner" hidden></div>
+	<header class="bar">
+		<h1>Tidewell Goods</h1>
+		<a href="/admin">Dashboards</a>
+	</header>
+	<main>
+		<section>
+			<div id="products" class="grid"></div>
+		</section>
+		<aside class="cart">
+			<h2>Your cart</h2>
+			<div id="cart-lines"></div>
+			<div id="cart-totals"></div>
+			<p><input id="coupon" type="text" placeholder="Coupon code" autocomplete="off"></p>
+			<p><button id="checkout" class="cta">Check out</button></p>
+			<p id="cart-note" class="note">Synthetic shop: nothing here is real.</p>
+		</aside>
+	</main>
+	<script type="module" src="/app.js"></script>
+</body>
+</html>

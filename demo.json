@@ -1,0 +1,8 @@
+{
+  "name": "coding",
+  "title": "A shop, its code, and a test that costs money (synthetic)",
+  "space": "Case study: coding",
+  "stakes": "A synthetic shop for a demo; a wrong memory here would point the demo's code changes at the wrong files.",
+  "question": "I want to A/B test the free-shipping threshold. What code would that touch, what could break, and what has gone wrong here before?",
+  "ready": "shippingFor"
+}

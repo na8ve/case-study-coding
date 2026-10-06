@@ -1,0 +1,17 @@
+# Incidents, their root causes and what fixed them (synthetic).
+INC-009 | root_cause | Floating-point prices | INC-009: prices were held as floats and rounding made refunds one cent off. The root cause was floating-point prices.
+INC-009 | fixed_by | DEC-0003 | INC-009 was fixed by DEC-0003: money is whole cents.
+INC-009 | result | One-cent mismatches on refunds | INC-009 result: one-cent mismatches on refunds until prices became integers.
+INC-014 | root_cause | shippingFor | INC-014: shippingFor was given the list subtotal, so a coupon that took an order under the free-shipping threshold still shipped it free.
+INC-014 | root_cause | orderTotals | INC-014: orderTotals passed the subtotal before the discount to shippingFor.
+INC-014 | fixed_by | DEC-0007 | INC-014 was fixed by DEC-0007: free shipping is judged on the discounted subtotal.
+INC-014 | result | 212 orders shipped free under the threshold | INC-014 result: 212 orders shipped free after their discount took them under the threshold, and the finance dashboard overstated margin by $1,184 until the carrier invoices arrived.
+INC-021 | root_cause | storefrontConfig | INC-021: the first experiment, a hero-image test, drew its variant at random on every request in storefrontConfig, so one visitor saw both variants.
+INC-021 | fixed_by | DEC-0011 | INC-021 was fixed by DEC-0011: a variant is a hash of visitor id and experiment key.
+INC-021 | result | Visitors counted in both arms | INC-021 result: visitors were counted in both arms, exposures were duplicated and the behavior dashboard's visitor count was inflated.
+INC-026 | root_cause | orderEconomics | INC-026: a dashboard showed revenue that included tax, because the order's tax was added into revenue.
+INC-026 | fixed_by | DEC-0005 | INC-026 was fixed by DEC-0005: tax is never revenue.
+INC-026 | result | Revenue overstated by the tax rate | INC-026 result: revenue was overstated by the tax rate for nine days.
+INC-030 | root_cause | Unchecked sample ratio | INC-030: a 61/39 split was shipped as a win because nothing checked that visitors divided the way the weights said.
+INC-030 | fixed_by | DEC-0015 | INC-030 was fixed by DEC-0015: the sample-ratio check runs before any result is read.
+INC-030 | result | A broken split shipped as a win | INC-030 result: a broken split was shipped as a win and rolled back a week later.
